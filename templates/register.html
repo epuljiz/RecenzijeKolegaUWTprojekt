@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Registracija</h2>
+                    <form method="POST" action="{{ url_for('register') }}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Ime i prezime</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email adresa</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="form-text">Koristi fakultetski email ako je moguće.</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Lozinka</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="faculty" class="form-label">Fakultet</label>
+                                <select class="form-select" id="faculty" name="faculty">
+                                    <option value="">Odaberi fakultet</option>
+                                    <option value="Elektrotehnika i računarstvo">Elektrotehnika i računarstvo</option>
+                                    <option value="Arhitektura">Arhitektura</option>
+                                    <option value="Gradjevinski fakultet">Građevinski fakultet</option>
+                                    <option value="Medicina">Medicina</option>
+                                    <option value="Pravo">Pravo</option>
+                                    <option value="Ekonomija">Ekonomija</option>
+                                    <option value="Filozofski fakultet">Filozofski fakultet</option>
+                                    <option value="Kinezologija">Kinezologija</option>
+                                    <option value="Drugi">Drugi</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="department" class="form-label">Odjel/Smjer</label>
+                                <input type="text" class="form-control" id="department" name="department">
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Registriraj se</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <p>Već imaš račun? <a href="{{ url_for('login') }}">Prijavi se</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

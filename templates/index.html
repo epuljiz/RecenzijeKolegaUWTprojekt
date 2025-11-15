@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero sekcija -->
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Recenzijska platforma za kolege s fakulteta</h1>
+        <p class="lead mb-4">Ocijeni i ocijenjen budi! Pomaži kolegama pronaći najbolje suradnike za projekte i učenje.
+        </p>
+        {% if not current_user.is_authenticated %}
+        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg me-2">Registriraj se</a>
+        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Prijavi se</a>
+        {% else %}
+        <a href="{{ url_for('add_review') }}" class="btn btn-light btn-lg me-2">Dodaj recenziju</a>
+        <a href="{{ url_for('reviews') }}" class="btn btn-outline-light btn-lg">Pogledaj recenzije</a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- O nama sekcija -->
+<section id="about" class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <h2 class="mb-4">O nama</h2>
+                <p class="mb-4">KolegaRecenzije je platforma nastala kako bi studenti mogli međusobno dijeliti iskustva
+                    o suradnji na projektima, učenju i drugim aktivnostima na fakultetu.</p>
+                <p class="mb-4">Naš cilj je pomoći studentima pronaći najbolje suradnike te unaprijediti kvalitetu
+                    timskog rada kroz konstruktivne povratne informacije.</p>
+                <div class="d-flex">
+                    <div class="me-4">
+                        <h4 class="text-primary">{{ users_count }}</h4>
+                        <p>Registriranih korisnika</p>
+                    </div>
+                    <div class="me-4">
+                        <h4 class="text-primary">{{ reviews_count }}</h4>
+                        <p>Recenzija</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h3 class="card-title mb-4">Zašto koristiti KolegaRecenzije?</h3>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Pronađi pouzdane suradnike za projekte
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Dobij konstruktivne povratne informacije
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Poboljšaj svoje timske vještine
+                            </li>
+                            <li class="mb-3">
+                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                Gradi reputaciju kvalitetnog suradnika
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Zadnje recenzije -->
+<section id="recent-reviews" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Zadnje recenzije</h2>
+        <div class="row g-4">
+            {% for review in recent_reviews %}
+            <div class="col-md-4">
+                <div class="card review-card shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h5 class="card-title">{{ review.reviewed_user_name }}</h5>
+                            <div class="rating-stars">
+                                {% for i in range(5) %}
+                                {% if i < review.rating %} <i class="bi bi-star-fill"></i>
+                                    {% else %}
+                                    <i class="bi bi-star"></i>
+                                    {% endif %}
+                                    {% endfor %}
+                            </div>
+                        </div>
+                        <p class="card-text">{{ review.comment[:100] }}{% if review.comment|length > 100 %}...{% endif
+                            %}</p>
+                        <div class="mt-3">
+                            <small class="text-muted">{{ review.formatted_date }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{{ url_for('reviews') }}" class="btn btn-primary">Vidi sve recenzije</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Dodaj recenziju</h2>
+                    <form method="POST" action="{{ url_for('add_review') }}">
+                        <div class="mb-4">
+                            <label for="reviewed_user_email" class="form-label">Email kolege kojeg ocjenjuješ</label>
+                            <input type="email" class="form-control" id="reviewed_user_email" name="reviewed_user_email"
+                                required>
+                            <div class="form-text">Unesi email adresu kolege kojeg želiš ocijeniti.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Ocjena</label>
+                            <div class="rating-input">
+                                <div class="d-flex justify-content-between">
+                                    {% for i in range(1, 6) %}
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="rating" id="rating{{ i }}"
+                                            value="{{ i }}" required>
+                                        <label class="form-check-label" for="rating{{ i }}">
+                                            <div class="rating-stars">
+                                                {% for j in range(i) %}
+                                                <i class="bi bi-star-fill"></i>
+                                                {% endfor %}
+                                                {% for j in range(5-i) %}
+                                                <i class="bi bi-star"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <small class="d-block text-center">{{ i }}/5</small>
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="project_type" class="form-label">Vrsta projekta/suradnje</label>
+                            <select class="form-select" id="project_type" name="project_type">
+                                <option value="">Odaberi vrstu suradnje</option>
+                                <option value="Fakultetski projekt">Fakultetski projekt</option>
+                                <option value="Timski rad">Timski rad</option>
+                                <option value="Zadaća">Zadaća</option>
+                                <option value="Laboratorijska vježba">Laboratorijska vježba</option>
+                                <option value="Istraživački rad">Istraživački rad</option>
+                                <option value="Drugo">Drugo</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="comment" class="form-label">Komentar</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="5"
+                                placeholder="Opiši svoje iskustvo suradnje..." required></textarea>
+                            <div class="form-text">Budite konstruktivni i objektivni u svojoj recenziji.</div>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Objavi recenziju</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ratingInputs = document.querySelectorAll('input[name="rating"]');
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', function () {
+                // Osvježi prikaz zvjezdica za sve labele
+                ratingInputs.forEach(ratingInput => {
+                    const label = ratingInput.nextElementSibling;
+                    const stars = label.querySelector('.rating-stars');
+                    if (ratingInput.checked) {
+                        stars.classList.add('text-warning');
+                    } else {
+                        stars.classList.remove('text-warning');
+                    }
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}
