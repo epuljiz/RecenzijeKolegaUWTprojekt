@@ -5,7 +5,6 @@ from flask_principal import Principal
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 
-# Inicijaliziraj ekstenzije
 mongo = PyMongo()
 login_manager = LoginManager()
 mail = Mail()

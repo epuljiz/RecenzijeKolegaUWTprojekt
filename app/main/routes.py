@@ -5,7 +5,7 @@ from bson import ObjectId
 
 @main_bp.route('/')
 def index():
-    # Dohvati zadnje recenzije za prikaz na početnoj stranici
+    # Dohvati nove recenzije za prikaz na početnoj stranici
     recent_reviews = list(mongo.db.reviews.find().sort('date_created', -1).limit(3))
     
     # Pripremi podatke za prikaz

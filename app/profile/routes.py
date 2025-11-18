@@ -3,7 +3,6 @@ from flask_login import login_required, current_user
 from bson import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from ..extensions import mongo
-
 from . import profile_bp
 
 @profile_bp.route('/profile')
@@ -12,14 +11,14 @@ def profile():
     # Dohvati korisnikove recenzije
     user_reviews = list(mongo.db.reviews.find({'reviewed_user_id': ObjectId(current_user.id)}).sort('date_created', -1))
     
-    # Izračunaj prosječnu ocjenu
+    # Izračunaj prosječnu ocjenu za korisnika
     total_rating = sum(review['rating'] for review in user_reviews)
     avg_rating = total_rating / len(user_reviews) if user_reviews else 0
     
     # Dohvati recenzije koje je korisnik napisao
     reviews_written = list(mongo.db.reviews.find({'reviewer_user_id': ObjectId(current_user.id)}).sort('date_created', -1).limit(5))
     
-    # Pripremi podatke za recenzije
+    # Pripremi podatke za recenzije koje je korisnik napisao
     for review in reviews_written:
         reviewed_user = mongo.db.users.find_one({'_id': review['reviewed_user_id']})
         review['reviewed_user_name'] = reviewed_user['name'] if reviewed_user else 'Nepoznat korisnik'

@@ -7,7 +7,7 @@
             <div class="card shadow">
                 <div class="card-body p-5">
                     <h2 class="text-center mb-4">Prijava</h2>
-                    <form method="POST" action="{{ url_for('login') }}">
+                    <form method="POST" action="{{ url_for('auth.login') }}">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email adresa</label>
                             <input type="email" class="form-control" id="email" name="email" required>
@@ -21,7 +21,7 @@
                         </div>
                     </form>
                     <div class="text-center mt-4">
-                        <p>Nemaš račun? <a href="{{ url_for('register') }}">Registriraj se</a></p>
+                        <p>Nemaš račun? <a href="{{ url_for('auth.register') }}">Registriraj se</a></p>
                     </div>
                 </div>
             </div>
