@@ -14,7 +14,7 @@
     <!-- Navigacija -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+            <a class="navbar-brand fw-bold" href="{{ url_for('main.index') }}">
                 <i class="bi bi-people-fill me-2"></i>KolegaRecenzije
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -23,17 +23,24 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Početna</a>
+                        <a class="nav-link" href="{{ url_for('main.index') }}">Početna</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('reviews') }}">Recenzije</a>
+                        <a class="nav-link" href="{{ url_for('reviews.reviews') }}">Recenzije</a>
                     </li>
                     {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('add_review') }}">Dodaj recenziju</a>
+                        <a class="nav-link" href="{{ url_for('reviews.add_review') }}">Dodaj recenziju</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('profile') }}">Moj profil</a>
+                        <a class="nav-link" href="{{ url_for('profile.profile') }}">Moj profil</a>
+                    </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin.dashboard') }}">
+                            <i class="bi bi-shield-check me-1"></i>Admin
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
@@ -43,14 +50,14 @@
                         <span class="navbar-text me-3">Pozdrav, {{ current_user.name }}!</span>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-outline-light" href="{{ url_for('logout') }}">Odjava</a>
+                        <a class="btn btn-outline-light" href="{{ url_for('auth.logout') }}">Odjava</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="btn btn-outline-light me-2" href="{{ url_for('login') }}">Prijava</a>
+                        <a class="btn btn-outline-light me-2" href="{{ url_for('auth.login') }}">Prijava</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-primary" href="{{ url_for('register') }}">Registracija</a>
+                        <a class="btn btn-primary" href="{{ url_for('auth.register') }}">Registracija</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -89,9 +96,14 @@
                 <div class="col-md-3 mb-3 mb-md-0">
                     <h5>Linkovi</h5>
                     <ul class="list-unstyled">
-                        <li><a href="{{ url_for('index') }}" class="text-white text-decoration-none">Početna</a></li>
-                        <li><a href="{{ url_for('reviews') }}" class="text-white text-decoration-none">Recenzije</a>
+                        <li><a href="{{ url_for('main.index') }}" class="text-white text-decoration-none">Početna</a>
                         </li>
+                        <li><a href="{{ url_for('reviews.reviews') }}"
+                                class="text-white text-decoration-none">Recenzije</a></li>
+                        <li><a href="{{ url_for('main.about_page') }}" class="text-white text-decoration-none">O
+                                nama</a></li>
+                        <li><a href="{{ url_for('main.contact_page') }}"
+                                class="text-white text-decoration-none">Kontakt</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3">

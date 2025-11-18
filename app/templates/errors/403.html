@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <i class="bi bi-shield-exclamation display-1 text-danger"></i>
+                    <h1 class="display-4 text-muted mt-4">403</h1>
+                    <h2 class="mb-4">Zabranjen pristup</h2>
+                    <p class="lead mb-4">
+                        Nemate dopuštenje za pristup ovoj stranici.
+                        Ova akcija zahtijeva posebne privilegije ili ste pokušali pristupiti resursu koji vam nije
+                        dostupan.
+                    </p>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="{{ url_for('main.index') }}" class="btn btn-primary me-md-2">Vrati se na početnu</a>
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary">Vrati se natrag</a>
+                    </div>
+                    {% if not current_user.is_authenticated %}
+                    <div class="mt-4">
+                        <p class="text-muted">Možda trebate biti prijavljeni da biste pristupili ovoj stranici.</p>
+                        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary">Prijavite se</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

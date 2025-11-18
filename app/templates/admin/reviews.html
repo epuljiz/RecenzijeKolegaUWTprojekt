@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1><i class="bi bi-chat-text me-2"></i>Upravljanje recenzijama</h1>
+        <a href="{{ url_for('reviews.reviews') }}" class="btn btn-outline-primary">
+            <i class="bi bi-eye me-1"></i>Pogledaj sve recenzije
+        </a>
+    </div>
+
+    <!-- Tablica recenzija -->
+    <div class="card">
+        <div class="card-body">
+            {% if reviews %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ocijenjeni student</th>
+                            <th>Autor recenzije</th>
+                            <th>Ocjena</th>
+                            <th>Vrsta projekta</th>
+                            <th>Komentar</th>
+                            <th>Datum</th>
+                            <th>Akcije</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for review in reviews %}
+                        <tr>
+                            <td>
+                                <strong>{{ review.reviewed_user_name }}</strong>
+                            </td>
+                            <td>{{ review.reviewer_name }}</td>
+                            <td>
+                                <div class="rating-stars">
+                                    {% for i in range(5) %}
+                                    {% if i < review.rating %} <i class="bi bi-star-fill text-warning"></i>
+                                        {% else %}
+                                        <i class="bi bi-star text-warning"></i>
+                                        {% endif %}
+                                        {% endfor %}
+                                </div>
+                                <small class="text-muted">{{ review.rating }}/5</small>
+                            </td>
+                            <td>
+                                {% if review.project_type %}
+                                <span class="badge bg-secondary">{{ review.project_type }}</span>
+                                {% else %}
+                                <span class="text-muted">-</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <small>{{ review.comment[:100] }}{% if review.comment|length > 100 %}...{% endif
+                                    %}</small>
+                            </td>
+                            <td>
+                                <small>{{ review.formatted_date }}</small>
+                            </td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ url_for('reviews.review_detail', review_id=review._id) }}"
+                                        class="btn btn-outline-primary" title="Pregledaj">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deleteModal{{ review._id }}" title="Obriši">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Delete Modal -->
+                                <div class="modal fade" id="deleteModal{{ review._id }}" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Potvrdi brisanje</h5>
+                                                <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Jeste li sigurni da želite obrisati ovu recenziju?</p>
+                                                <div class="alert alert-warning">
+                                                    <strong>Ocijenjeni:</strong> {{ review.reviewed_user_name }}<br>
+                                                    <strong>Autor:</strong> {{ review.reviewer_name }}<br>
+                                                    <strong>Ocjena:</strong> {{ review.rating }}/5
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Odustani</button>
+                                                <form method="POST"
+                                                    action="{{ url_for('admin.delete_review_admin', review_id=review._id) }}">
+                                                    <button type="submit" class="btn btn-danger">Obriši
+                                                        recenziju</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Paginacija -->
+            {% if total_pages > 1 %}
+            <nav aria-label="Paginacija recenzija" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('admin.manage_reviews', page=page-1) }}">
+                            Prethodna
+                        </a>
+                    </li>
+
+                    {% for p in range(1, total_pages + 1) %}
+                    <li class="page-item {% if p == page %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('admin.manage_reviews', page=p) }}">
+                            {{ p }}
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                    <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+                        <a class="page-link" href="{{ url_for('admin.manage_reviews', page=page+1) }}">
+                            Sljedeća
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {% endif %}
+
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-chat-square-text display-1 text-muted"></i>
+                <h3 class="mt-3 text-muted">Nema recenzija</h3>
+                <p class="text-muted">Nema recenzija za prikaz.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

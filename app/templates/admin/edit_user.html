@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>Uredi korisnika: {{ user.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('admin.edit_user', user_id=user._id) }}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Ime i prezime *</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email adresa *</label>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="{{ user.email }}" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="faculty" class="form-label">Fakultet</label>
+                                <select class="form-select" id="faculty" name="faculty">
+                                    <option value="">Odaberi fakultet</option>
+                                    <option value="Elektrotehnika i računarstvo" {% if
+                                        user.faculty=='Elektrotehnika i računarstvo' %}selected{% endif %}>
+                                        Elektrotehnika i računarstvo</option>
+                                    <option value="Arhitektura" {% if user.faculty=='Arhitektura' %}selected{% endif %}>
+                                        Arhitektura</option>
+                                    <option value="Gradjevinski fakultet" {% if user.faculty=='Gradjevinski fakultet'
+                                        %}selected{% endif %}>Građevinski fakultet</option>
+                                    <option value="Medicina" {% if user.faculty=='Medicina' %}selected{% endif %}>
+                                        Medicina</option>
+                                    <option value="Pravo" {% if user.faculty=='Pravo' %}selected{% endif %}>Pravo
+                                    </option>
+                                    <option value="Ekonomija" {% if user.faculty=='Ekonomija' %}selected{% endif %}>
+                                        Ekonomija</option>
+                                    <option value="Filozofski fakultet" {% if user.faculty=='Filozofski fakultet'
+                                        %}selected{% endif %}>Filozofski fakultet</option>
+                                    <option value="Kinezologija" {% if user.faculty=='Kinezologija' %}selected{% endif
+                                        %}>Kinezologija</option>
+                                    <option value="Drugi" {% if user.faculty=='Drugi' %}selected{% endif %}>Drugi
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="department" class="form-label">Odjel/Smjer</label>
+                                <input type="text" class="form-control" id="department" name="department"
+                                    value="{{ user.department or '' }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="role" class="form-label">Uloga *</label>
+                                <select class="form-select" id="role" name="role" required>
+                                    <option value="user" {% if user.role=='user' %}selected{% endif %}>Korisnik</option>
+                                    <option value="admin" {% if user.role=='admin' %}selected{% endif %}>Administrator
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">Nova lozinka</label>
+                                <input type="password" class="form-control" id="password" name="password"
+                                    placeholder="Ostavi prazno za zadržati trenutnu lozinku">
+                                <div class="form-text">Unesi samo ako želiš promijeniti lozinku.</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="email_verified"
+                                    name="email_verified" {% if user.email_verified %}checked{% endif %}>
+                                <label class="form-check-label" for="email_verified">
+                                    Email verificiran
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url_for('admin.users') }}" class="btn btn-secondary me-md-2">Odustani</a>
+                            <button type="submit" class="btn btn-primary">Ažuriraj korisnika</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

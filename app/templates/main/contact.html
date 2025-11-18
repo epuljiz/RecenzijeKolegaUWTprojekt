@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h1 class="text-center mb-4">Kontaktirajte nas</h1>
+
+                    <div class="row mb-5">
+                        <div class="col-md-6 text-center mb-4">
+                            <div class="bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+                                style="width: 80px; height: 80px;">
+                                <i class="bi bi-envelope fs-2"></i>
+                            </div>
+                            <h5>Email</h5>
+                            <p class="mb-1">podrska@kolegarecenzije.hr</p>
+                            <small class="text-muted">Odgovor u roku od 24 sata</small>
+                        </div>
+                        <div class="col-md-6 text-center mb-4">
+                            <div class="bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+                                style="width: 80px; height: 80px;">
+                                <i class="bi bi-clock fs-2"></i>
+                            </div>
+                            <h5>Radno vrijeme</h5>
+                            <p class="mb-1">Pon - Pet: 9:00 - 17:00</p>
+                            <small class="text-muted">Sub - Ned: zatvoreno</small>
+                        </div>
+                    </div>
+
+                    <form method="POST" action="#">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Ime i prezime *</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email adresa *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Predmet *</label>
+                            <select class="form-select" id="subject" name="subject" required>
+                                <option value="">Odaberite predmet</option>
+                                <option value="podrska">Tehnička podrška</option>
+                                <option value="prijedlog">Prijedlog za poboljšanje</option>
+                                <option value="prijava">Prijava problema</option>
+                                <option value="ostalo">Ostalo</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="message" class="form-label">Poruka *</label>
+                            <textarea class="form-control" id="message" name="message" rows="6"
+                                placeholder="Opišite svoj upit ili problem..." required></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Pošalji poruku</button>
+                        </div>
+                    </form>
+
+                    <div class="mt-5 p-4 bg-light rounded">
+                        <h5 class="mb-3">Često postavljana pitanja</h5>
+                        <div class="accordion" id="faqAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq1">
+                                        Kako mogu izbrisati svoj profil?
+                                    </button>
+                                </h2>
+                                <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Pošaljite nam zahtjev na email s predmetom "Brisanje profila" i mi ćemo obrisati
+                                        vaš profil u roku od 48 sati.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq2">
+                                        Mogu li ukloniti neku recenziju o sebi?
+                                    </button>
+                                </h2>
+                                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Ako smatrate da je recenzija neprimjerena ili krši naša pravila, kontaktirajte
+                                        nas i mi ćemo je pregledati.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq3">
+                                        Kako prijaviti zloupotrebu?
+                                    </button>
+                                </h2>
+                                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                    <div class="accordion-body">
+                                        Koristite kontakt formu ili pošaljite email s detaljima o zloupotrebi. Odgovorit
+                                        ćemo u najkraćem mogućem roku.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

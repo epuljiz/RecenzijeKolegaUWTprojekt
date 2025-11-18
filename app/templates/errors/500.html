@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <i class="bi bi-exclamation-triangle display-1 text-warning"></i>
+                    <h1 class="display-4 text-muted mt-4">500</h1>
+                    <h2 class="mb-4">Pogreška na serveru</h2>
+                    <p class="lead mb-4">
+                        Došlo je do neočekivane pogreške na našem serveru.
+                        Naš tim je obaviješten i radi na rješavanju problema.
+                    </p>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="{{ url_for('main.index') }}" class="btn btn-primary me-md-2">Vrati se na početnu</a>
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary">Vrati se natrag</a>
+                    </div>
+                    <div class="mt-4">
+                        <small class="text-muted">
+                            Ako se problem nastavi, kontaktirajte nas na
+                            <a href="mailto:podrska@kolegarecenzije.hr">podrska@kolegarecenzije.hr</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

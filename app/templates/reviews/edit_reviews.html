@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Uredi recenziju</h2>
+                    <p class="text-center text-muted mb-4">Uređujete recenziju za: <strong>{{ reviewed_user_name
+                            }}</strong></p>
+
+                    <form method="POST" action="{{ url_for('reviews.edit_review', review_id=review._id) }}">
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-4">
+                            {{ form.rating.label(class="form-label") }}
+                            <div class="rating-input">
+                                <div class="d-flex justify-content-between">
+                                    {% for subfield in form.rating %}
+                                    <div class="form-check form-check-inline">
+                                        {{ subfield(class="form-check-input") }}
+                                        <label class="form-check-label" for="{{ subfield.id }}">
+                                            <div
+                                                class="rating-stars {% if subfield.data == form.rating.data %}text-warning{% endif %}">
+                                                {% set i = subfield.data %}
+                                                {% for j in range(i) %}
+                                                <i class="bi bi-star-fill"></i>
+                                                {% endfor %}
+                                                {% for j in range(5-i) %}
+                                                <i class="bi bi-star"></i>
+                                                {% endfor %}
+                                            </div>
+                                            <small class="d-block text-center">{{ i }}/5</small>
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% if form.rating.errors %}
+                            <div class="text-danger">
+                                {% for error in form.rating.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.project_type.label(class="form-label") }}
+                            {{ form.project_type(class="form-select") }}
+                        </div>
+
+                        <div class="mb-4">
+                            {{ form.comment.label(class="form-label") }}
+                            {{ form.comment(class="form-control") }}
+                            {% if form.comment.errors %}
+                            <div class="text-danger">
+                                {% for error in form.comment.errors %}
+                                <small>{{ error }}</small>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            {{ form.submit(class="btn btn-primary btn-lg") }}
+                            <a href="{{ url_for('reviews.my_reviews') }}" class="btn btn-outline-secondary">Odustani</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const ratingInputs = document.querySelectorAll('input[name="rating"]');
+
+        function updateRatingDisplay() {
+            ratingInputs.forEach(ratingInput => {
+                const label = ratingInput.nextElementSibling;
+                const stars = label.querySelector('.rating-stars');
+                if (ratingInput.checked) {
+                    stars.classList.add('text-warning');
+                } else {
+                    stars.classList.remove('text-warning');
+                }
+            });
+        }
+
+        ratingInputs.forEach(input => {
+            input.addEventListener('change', updateRatingDisplay);
+        });
+
+        // Inicijalno postavi prikaz
+        updateRatingDisplay();
+    });
+</script>
+{% endblock %}

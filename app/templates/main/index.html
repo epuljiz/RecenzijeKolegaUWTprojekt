@@ -8,11 +8,11 @@
         <p class="lead mb-4">Ocijeni i ocijenjen budi! Pomaži kolegama pronaći najbolje suradnike za projekte i učenje.
         </p>
         {% if not current_user.is_authenticated %}
-        <a href="{{ url_for('register') }}" class="btn btn-light btn-lg me-2">Registriraj se</a>
-        <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Prijavi se</a>
+        <a href="{{ url_for('auth.register') }}" class="btn btn-light btn-lg me-2">Registriraj se</a>
+        <a href="{{ url_for('auth.login') }}" class="btn btn-outline-light btn-lg">Prijavi se</a>
         {% else %}
-        <a href="{{ url_for('add_review') }}" class="btn btn-light btn-lg me-2">Dodaj recenziju</a>
-        <a href="{{ url_for('reviews') }}" class="btn btn-outline-light btn-lg">Pogledaj recenzije</a>
+        <a href="{{ url_for('reviews.add_review') }}" class="btn btn-light btn-lg me-2">Dodaj recenziju</a>
+        <a href="{{ url_for('reviews.reviews') }}" class="btn btn-outline-light btn-lg">Pogledaj recenzije</a>
         {% endif %}
     </div>
 </section>
@@ -90,6 +90,7 @@
                         <p class="card-text">{{ review.comment[:100] }}{% if review.comment|length > 100 %}...{% endif
                             %}</p>
                         <div class="mt-3">
+                            <small class="text-muted">Ocijenio: {{ review.reviewer_name }}</small><br>
                             <small class="text-muted">{{ review.formatted_date }}</small>
                         </div>
                     </div>
@@ -98,7 +99,7 @@
             {% endfor %}
         </div>
         <div class="text-center mt-5">
-            <a href="{{ url_for('reviews') }}" class="btn btn-primary">Vidi sve recenzije</a>
+            <a href="{{ url_for('reviews.reviews') }}" class="btn btn-primary">Vidi sve recenzije</a>
         </div>
     </div>
 </section>

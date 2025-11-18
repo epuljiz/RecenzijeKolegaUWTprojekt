@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container text-center py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="display-1 text-muted">429</h1>
+            <h2 class="mb-4">Previše zahtjeva</h2>
+            <p class="lead mb-4">Molimo pričekajte prije nego što ponovno pokušate.</p>
+            <a href="{{ url_for('main.index') }}" class="btn btn-primary">Vrati se na početnu</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

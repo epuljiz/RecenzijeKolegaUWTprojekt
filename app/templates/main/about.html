@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h1 class="text-center mb-4">O nama</h1>
+
+                    <div class="text-center mb-5">
+                        <i class="bi bi-people-fill display-1 text-primary"></i>
+                    </div>
+
+                    <h3 class="mb-3">Naša misija</h3>
+                    <p class="mb-4">
+                        KolegaRecenzije je platforma nastala iz potrebe studenta za boljom suradnjom na fakultetskim
+                        projektima.
+                        Cilj nam je stvoriti zajednicu u kojoj studenti mogu međusobno dijeliti iskustva, pronaći
+                        pouzdane suradnike
+                        i unaprijediti svoje timske vještine.
+                    </p>
+
+                    <h3 class="mb-3">Kako funkcionira?</h3>
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <div class="bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="bi bi-person-plus fs-4"></i>
+                                </div>
+                                <h5>Registriraj se</h5>
+                                <p class="small">Kreiraj profil s fakultetskim podacima</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <div class="bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="bi bi-chat-square-text fs-4"></i>
+                                </div>
+                                <h5>Ocijeni kolege</h5>
+                                <p class="small">Podijeli iskustvo suradnje na projektima</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="text-center">
+                                <div class="bg-primary text-white rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center"
+                                    style="width: 60px; height: 60px;">
+                                    <i class="bi bi-graph-up fs-4"></i>
+                                </div>
+                                <h5>Gradi reputaciju</h5>
+                                <p class="small">Stekni povjerenje drugih studenata</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3 class="mb-3">Naša obećanja</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex">
+                                <i class="bi bi-shield-check text-success me-3 fs-4"></i>
+                                <div>
+                                    <h5>Sigurnost i privatnost</h5>
+                                    <p class="mb-0">Svi podaci su zaštićeni i koriste se isključivo u svrhu platforme.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex">
+                                <i class="bi bi-hand-thumbs-up text-success me-3 fs-4"></i>
+                                <div>
+                                    <h5>Konstruktivne recenzije</h5>
+                                    <p class="mb-0">Potičemo pozitivnu i korisnu povratnu informaciju.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex">
+                                <i class="bi bi-graph-up text-success me-3 fs-4"></i>
+                                <div>
+                                    <h5>Transparentnost</h5>
+                                    <p class="mb-0">Sve recenzije su javne i provjerene.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex">
+                                <i class="bi bi-people text-success me-3 fs-4"></i>
+                                <div>
+                                    <h5>Zajednica</h5>
+                                    <p class="mb-0">Gradimo zajednicu pouzdanih studenata.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 p-4 bg-light rounded">
+                        <h4 class="text-center mb-3">Imate pitanja ili prijedloge?</h4>
+                        <p class="text-center mb-0">
+                            Kontaktirajte nas putem <a href="{{ url_for('main.contact') }}">kontakt forme</a> ili
+                            pošaljite email na <strong>podrska@kolegarecenzije.hr</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

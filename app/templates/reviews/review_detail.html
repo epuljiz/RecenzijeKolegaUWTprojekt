@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <!-- Header -->
+                    <div class="text-center mb-5">
+                        <h1 class="mb-3">Recenzija</h1>
+                        <div class="rating-stars display-6 mb-3">
+                            {% for i in range(5) %}
+                            {% if i < review.rating %} <i class="bi bi-star-fill text-warning"></i>
+                                {% else %}
+                                <i class="bi bi-star text-warning"></i>
+                                {% endif %}
+                                {% endfor %}
+                        </div>
+                        <span class="badge bg-primary fs-6">{{ review.rating }}/5</span>
+                    </div>
+
+                    <!-- Review Content -->
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Ocijenjeni student</h5>
+                                    <h4 class="text-primary">{{ review.reviewed_user_name }}</h4>
+                                    {% if review.reviewed_user_faculty %}
+                                    <p class="text-muted mb-0">{{ review.reviewed_user_faculty }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Autor recenzije</h5>
+                                    <h4>{{ review.reviewer_name }}</h4>
+                                    {% if review.reviewer_faculty %}
+                                    <p class="text-muted mb-0">{{ review.reviewer_faculty }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project Type -->
+                    {% if review.project_type %}
+                    <div class="text-center mb-4">
+                        <span class="badge bg-secondary fs-6 p-3">
+                            <i class="bi bi-briefcase me-2"></i>{{ review.project_type }}
+                        </span>
+                    </div>
+                    {% endif %}
+
+                    <!-- Comment -->
+                    <div class="card bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title">Komentar</h5>
+                            <p class="card-text fs-5">{{ review.comment }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Metadata -->
+                    <div class="row mt-4 text-center">
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="bi bi-calendar me-1"></i>
+                                Objavljeno: {{ review.formatted_date }}
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <small class="text-muted">
+                                <i class="bi bi-clock me-1"></i>
+                                {% if review.last_updated %}
+                                Ažurirano: {{ review.last_updated.strftime('%d.%m.%Y. %H:%M') }}
+                                {% else %}
+                                Originalna recenzija
+                                {% endif %}
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="text-center mt-5">
+                        <a href="{{ url_for('reviews.reviews') }}" class="btn btn-outline-secondary me-2">
+                            <i class="bi bi-arrow-left me-1"></i>Natrag na recenzije
+                        </a>
+                        {% if current_user.is_authenticated and (current_user.id|string ==
+                        review.reviewer_user_id|string or current_user.role == 'admin') %}
+                        <a href="{{ url_for('reviews.edit_review', review_id=review._id) }}"
+                            class="btn btn-primary me-2">
+                            <i class="bi bi-pencil me-1"></i>Uredi
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

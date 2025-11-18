@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">Uredi profil</h2>
+
+                    <form method="POST" action="{{ url_for('profile.edit_profile') }}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Ime i prezime *</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}"
+                                required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email adresa</label>
+                            <input type="email" class="form-control" id="email" value="{{ user.email }}" disabled>
+                            <div class="form-text">Email adresa se ne može promijeniti.</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="faculty" class="form-label">Fakultet</label>
+                                <select class="form-select" id="faculty" name="faculty">
+                                    <option value="">Odaberi fakultet</option>
+                                    <option value="Elektrotehnika i računarstvo" {% if
+                                        user.faculty=='Elektrotehnika i računarstvo' %}selected{% endif %}>
+                                        Elektrotehnika i računarstvo</option>
+                                    <option value="Arhitektura" {% if user.faculty=='Arhitektura' %}selected{% endif %}>
+                                        Arhitektura</option>
+                                    <option value="Gradjevinski fakultet" {% if user.faculty=='Gradjevinski fakultet'
+                                        %}selected{% endif %}>Građevinski fakultet</option>
+                                    <option value="Medicina" {% if user.faculty=='Medicina' %}selected{% endif %}>
+                                        Medicina</option>
+                                    <option value="Pravo" {% if user.faculty=='Pravo' %}selected{% endif %}>Pravo
+                                    </option>
+                                    <option value="Ekonomija" {% if user.faculty=='Ekonomija' %}selected{% endif %}>
+                                        Ekonomija</option>
+                                    <option value="Filozofski fakultet" {% if user.faculty=='Filozofski fakultet'
+                                        %}selected{% endif %}>Filozofski fakultet</option>
+                                    <option value="Kinezologija" {% if user.faculty=='Kinezologija' %}selected{% endif
+                                        %}>Kinezologija</option>
+                                    <option value="Drugi" {% if user.faculty=='Drugi' %}selected{% endif %}>Drugi
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label for="department" class="form-label">Odjel/Smjer</label>
+                                <input type="text" class="form-control" id="department" name="department"
+                                    value="{{ user.department or '' }}">
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Spremi promjene</button>
+                            <a href="{{ url_for('profile.profile') }}" class="btn btn-outline-secondary">Odustani</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
