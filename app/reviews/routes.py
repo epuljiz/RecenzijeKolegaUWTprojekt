@@ -163,7 +163,7 @@ def edit_review(review_id):
     reviewed_user = mongo.db.users.find_one({'_id': review['reviewed_user_id']})
     reviewed_user_name = reviewed_user['name'] if reviewed_user else 'Nepoznat korisnik'
     
-    return render_template('reviews/edit_review.html', form=form, review=review, reviewed_user_name=reviewed_user_name)
+    return render_template('reviews/edit_reviews.html', form=form, review=review, reviewed_user_name=reviewed_user_name)
 
 @reviews_bp.route('/delete_review/<review_id>', methods=['POST'])
 @login_required

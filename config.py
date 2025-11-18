@@ -24,12 +24,13 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     TESTING = False
-    MAIL_SUPPRESS_SEND = True
+    MAIL_SUPPRESS_SEND = False
 
 class ProductionConfig(Config):
     DEBUG = False
     TESTING = False
     SESSION_COOKIE_SECURE = True
+    MAIL_SUPPRESS_SEND = False
 
 class TestingConfig(Config):
     TESTING = True

@@ -96,13 +96,12 @@
                         <span class="badge bg-secondary">{{ review.project_type }}</span>
                         {% endif %}
 
-                        <!-- Informacije o autoru recenzije -->
-                        {% set reviewer = mongo.db.users.find_one({'_id': review.reviewer_user_id}) %}
-                        {% if reviewer %}
                         <div class="mt-2">
-                            <small class="text-muted">Ocijenio: {{ reviewer.name }}</small>
+                            <small class="text-muted">Ocijenio: {{ review.reviewer_name }}</small>
+                            {% if review.reviewer_faculty %}
+                            <br><small class="text-muted">{{ review.reviewer_faculty }}</small>
+                            {% endif %}
                         </div>
-                        {% endif %}
                     </div>
                     {% endfor %}
                     {% else %}

@@ -15,7 +15,8 @@ admin_permission = Permission(RoleNeed('admin'))
 @admin_bp.before_request
 @login_required
 def restrict_admin():
-    if not admin_permission.can():
+    if current_user.role != 'admin':
+        print(f"🚫 ACCESS DENIED: Role is '{current_user.role}', expected 'admin'")
         abort(403)
 
 @admin_bp.route('/')

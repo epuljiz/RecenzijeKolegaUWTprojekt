@@ -30,7 +30,7 @@ def register():
             'faculty': form.faculty.data,
             'department': form.department.data,
             'role': 'user',
-            'email_verified': True, # za verifikaciju mailom, postavi na false
+            'email_verified': False, # za verifikaciju mailom, postavi na false
             'date_created': datetime.utcnow()
         }
         
