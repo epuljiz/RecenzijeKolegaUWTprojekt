@@ -14,7 +14,8 @@ admin_permission = Permission(RoleNeed('admin'))
 @reviews_bp.route('/reviews')
 def reviews():
     page = request.args.get('page', 1, type=int)
-    per_page = 12
+    # Paginacija - broj recenzija po stranici, inače je postavljeno na 12, stavljen 3 da se brže testira
+    per_page = 3
     skip = (page - 1) * per_page
     
     # Filteri
@@ -71,7 +72,7 @@ def add_review():
             flash('Ne možete ocijeniti samog sebe.', 'danger')
             return render_template('reviews/add_review.html', form=form)
         
-        # Provjeri da li je korisnik već ocijenio ovog korisnika
+        # Provjeri da li je korisnik već ocijenio korisnika kojeg pokušava ocijeniti
         existing_review = mongo.db.reviews.find_one({
             'reviewer_user_id': ObjectId(current_user.id),
             'reviewed_user_id': reviewed_user['_id']

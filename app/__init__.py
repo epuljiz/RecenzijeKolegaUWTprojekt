@@ -8,19 +8,19 @@ def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     
-    # Initialize extensions
+    # Inicijalizacija ekstenzija
     mongo.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
     principal.init_app(app)
     limiter.init_app(app)
     
-    # Configure login manager
+    # Konfiguracija login managera
     login_manager.login_view = 'auth.login'
     login_manager.login_message = 'Molimo prijavite se za pristup ovoj stranici.'
     login_manager.login_message_category = 'warning'
     
-    # User loader callback
+    # Korisnički loader callback
     from .models import User
     @login_manager.user_loader
     def load_user(user_id):
@@ -34,7 +34,7 @@ def create_app(config_name='default'):
             print(f"⚠️ Error loading user: {e}")
             return None
     
-    # Register blueprints
+    # Registracija blueprintova
     from .auth import auth_bp
     from .main import main_bp
     from .reviews import reviews_bp
@@ -47,11 +47,12 @@ def create_app(config_name='default'):
     app.register_blueprint(admin_bp)
     app.register_blueprint(profile_bp)
     
-    # Create admin user on first run - WITH ERROR HANDLING
+    # Kreiranje admin korisnika pri prvom pokretanju
     with app.app_context():
         try:
             create_admin_user()
         except Exception as e:
+            # Ne prekida aplikaciju ako kreiranje admina fejla
             print(f"⚠️ Admin user creation skipped: {e}")
     
     return app
@@ -60,7 +61,7 @@ def create_admin_user():
     from bson import ObjectId
     
     try:
-        # Test MongoDB connection first
+        # Test MongoDB veze
         mongo.db.command('ping')
         print("✅ MongoDB connection successful")
         
@@ -83,7 +84,7 @@ def create_admin_user():
             
     except Exception as e:
         print(f"⚠️ Could not create admin user: {e}")
-        # NE prekida aplikaciju ako admin creation faila
+        # NE prekida aplikaciju ako kreiranje admina fejla
 
 def create_admin_user():
     from bson import ObjectId

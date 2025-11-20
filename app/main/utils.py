@@ -18,7 +18,7 @@ def get_user_stats(user_id):
         'reviewed_user_id': ObjectId(user_id)
     })
 
-    # Prosječna ocjena
+    # Prosječna ocjena korisnika
     pipeline = [
         {'$match': {'reviewed_user_id': ObjectId(user_id)}},
         {'$group': {'_id': None, 'avg_rating': {'$avg': '$rating'}}}

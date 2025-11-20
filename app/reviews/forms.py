@@ -1,8 +1,8 @@
-from flask_wtf import FlaskForm  # PROMIJENI OVO
+from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, SelectField, RadioField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, NumberRange
 
-class ReviewForm(FlaskForm):  # KORISTI FlaskForm
+class ReviewForm(FlaskForm):
     reviewed_user_email = StringField('Email kolege', validators=[DataRequired(), Email()])
     rating = RadioField('Ocjena', 
                        choices=[
@@ -28,7 +28,7 @@ class ReviewForm(FlaskForm):  # KORISTI FlaskForm
                           render_kw={"rows": 5, "placeholder": "Opiši svoje iskustvo suradnje..."})
     submit = SubmitField('Objavi recenziju')
 
-class EditReviewForm(FlaskForm):  # KORISTI FlaskForm
+class EditReviewForm(FlaskForm):
     rating = RadioField('Ocjena', 
                        choices=[
                            (1, '1 ⭐'), 

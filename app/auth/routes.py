@@ -37,7 +37,7 @@ def register():
         result = mongo.db.users.insert_one(user_data)
         user = User(user_data)
         
-        # Pokušaj slanje emaila, ali ako ne uspije, molim te aplikacija ne moj se srušiti već po 100ti put
+        # Pokušaj slanje emaila, ali ako ne uspije, molim te aplikacija nemoj se srušiti već po 100ti put
         try:
             user_data['verification_token'] = generate_verification_token()
             mongo.db.users.update_one(

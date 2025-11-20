@@ -6,7 +6,7 @@ load_dotenv()
 
 app = create_app(os.getenv('FLASK_ENV', 'production'))
 
-# Test MongoDB connection on startup
+# Test MongoDB veze prije svakog zahtjeva, dodano zbog debugiranja
 @app.before_request
 def test_mongo_connection():
     try:
